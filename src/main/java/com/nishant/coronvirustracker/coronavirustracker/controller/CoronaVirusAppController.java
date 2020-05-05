@@ -1,12 +1,10 @@
 package com.nishant.coronvirustracker.coronavirustracker.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.nishant.coronvirustracker.coronavirustracker.models.LocationStats;
 import com.nishant.coronvirustracker.coronavirustracker.services.CoronoTrackerService;
 
@@ -16,7 +14,7 @@ public class CoronaVirusAppController {
 	@Autowired
 	private CoronoTrackerService coronoTrackerService;
 	
-	@RequestMapping("/")
+	@RequestMapping("/tracker")
 	public String home(Model model) {
 		List<LocationStats> locationStats = coronoTrackerService.getLocationStats();
 		int totalReportedCases = locationStats.stream().mapToInt(stats -> stats.getLatestTotalCases()).sum();
