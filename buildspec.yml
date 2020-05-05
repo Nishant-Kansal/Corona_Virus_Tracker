@@ -7,6 +7,13 @@ artifacts:
     - appspec.yml
     - target/coronavirus-tracker-0.0.1-SNAPSHOT.jar
 phases:
+    install:
+    commands:
+      - echo Entered the install phase...
+      - apt-get update -y
+      - apt-get install -y maven
+    finally:
+      - echo This always runs even if the update or install command fails
     pre_build:
     commands:
       - echo Entered the pre_build phase...
@@ -14,7 +21,6 @@ phases:
       - echo This always runs even if the login command fails
     build: 
     commands: 
-      - "echo Build started on `date`"
       - "mvn clean"
       - "mvn install"
     finally:
