@@ -1,12 +1,48 @@
---- 
-artifacts: 
-  files: 
+version: 0.2
+
+env:
+  variables:
+    JAVA_HOME: "/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.amzn2.0.1.x86_64/bin/javac"
+  
+phases:
+  install:
+    commands:
+      - echo Entered the install phase...
+      - apt-get update -y
+      - apt-get install -y maven
+    finally:
+      - echo This always runs even if the update or install command fails 
+  pre_build:
+    commands:
+      - echo Entered the pre_build phase...
+    finally:
+      - echo This always runs even if the login command fails 
+  build:
+    commands:
+      - echo Entered the build phase...
+      - echo Build started on `date`
+      - mvn clean install
+    finally:
+      - echo This always runs even if the install command fails
+  post_build:
+    commands:
+      - echo Entered the post_build phase...
+      - echo Build completed on `date`
+
+artifacts:
+  files:
     - appspec.yml
     - target/coronavirus-tracker-0.0.1-SNAPSHOT.jar
-phases: 
-  build: 
-    commands: 
-      - "echo Build started on `date`"
-      - "mvn clean"
-      - "mvn install"
-version: 0.2
+  discard-paths: yes
+  secondary-artifacts:
+    artifact1:
+      files:
+        - target/coronavirus-tracker-0.0.1-SNAPSHOT.jar
+      discard-paths: yes
+    artifact2:
+      files:
+        - target/coronavirus-tracker-0.0.1-SNAPSHOT.jar
+      discard-paths: yes
+cache:
+  paths:
+    - '/root/.m2/**/*'
