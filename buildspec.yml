@@ -1,12 +1,15 @@
 version: 0.2
 
+env:
+  variables:
+    JAVA_HOME: "/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.amzn2.0.1.x86_64"
+
 phases:
   install:
     commands:
       - echo Entered the install phase...
       - apt-get update -y
       - apt-get install -y maven
-      - cp settings.xml /root/.m2/
     finally:
       - echo This always runs even if the update or install command fails 
   pre_build:
