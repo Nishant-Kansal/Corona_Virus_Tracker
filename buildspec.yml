@@ -1,11 +1,18 @@
 version: 0.2
 
+env:
+  variables:
+    JAVA_HOME: "/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.amzn2.0.1.x86_64"
+    PATH: "${JAVA_HOME}/bin:$PATH"
 phases:
   install:
     commands:
       - echo Entered the install phase...
-      - apt-get update -y
-      - apt-get install -y maven
+      - wget http://mirror.olnevhost.net/pub/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz
+      - tar xvf apache-maven-3.0.5-bin.tar.gz
+      - mv apache-maven-3.0.5  /usr/local/apache-maven
+      - export M2_HOME=/usr/local/apache-maven
+      - export PATH=$M2_HOME/bin:$PATH
     finally:
       - echo This always runs even if the update or install command fails 
   pre_build:
