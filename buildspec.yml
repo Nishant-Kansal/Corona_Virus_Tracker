@@ -3,10 +3,9 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: openjdk11
+      java: openjdk8
     commands:
       - echo Entered the install phase...
-      - apt-get install java-1.8.0-openjdk-devel
       - apt-get update -y
       - apt-get install -y maven
     finally:
