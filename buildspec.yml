@@ -1,18 +1,13 @@
 version: 0.2
 
-env:
-  variables:
-    JAVA_HOME: "/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.amzn2.0.1.x86_64"
-    PATH: "${JAVA_HOME}/bin:$PATH"
 phases:
   install:
+    runtime-versions:
+      java: openjdk11
     commands:
       - echo Entered the install phase...
-      - wget http://mirror.olnevhost.net/pub/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz
-      - tar xvf apache-maven-3.0.5-bin.tar.gz
-      - mv apache-maven-3.0.5  /usr/local/apache-maven
-      - export M2_HOME=/usr/local/apache-maven
-      - export PATH=$M2_HOME/bin:$PATH
+      - apt-get update -y
+      - apt-get install -y maven
     finally:
       - echo This always runs even if the update or install command fails 
   pre_build:
@@ -24,10 +19,10 @@ phases:
     commands:
       - echo Entered the build phase...
       - echo Build started on `date`
+      - java -version
       - curl https://repo1.maven.org/maven2
       - mvn -s settings.xml clean
       - mvn -s settings.xml install
-      - mvn -Dmaven.compiler.fork=true -Dmaven.compiler.executable=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.amzn2.0.1.x86_64/bin/javac
     finally:
       - echo This always runs even if the install command fails
   post_build:
