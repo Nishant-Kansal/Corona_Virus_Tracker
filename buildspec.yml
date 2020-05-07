@@ -17,8 +17,9 @@ phases:
     commands:
       - echo Entered the build phase...
       - echo Build started on `date`
-      - mvn clean
-      - mvn install
+      - curl https://repo1.maven.org/maven2
+      - mvn -s settings.xml clean
+      - mvn -s settings.xml install
     finally:
       - echo This always runs even if the install command fails
   post_build:
