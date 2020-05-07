@@ -1,14 +1,17 @@
 version: 0.2
 
+env:
+  variables:
+    JAVA_HOME: "/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.amzn2.0.1.x86_64"
 phases:
   install:
-    runtime-versions:
-      java: openjdk8
     commands:
       - echo Entered the install phase...
-      - add-apt-repository ppa:openjdk-r/ppa
+      - add-apt-repository -y ppa:openjdk-r/ppa
       - apt-get update -y
-      - apt-get install openjdk-8-jdk
+      - apt-get -y install openjdk-8-jdk
+      - update-alternatives --config java
+      - update-alternatives --config javac
       - apt-get install -y maven
     finally:
       - echo This always runs even if the update or install command fails 
@@ -23,7 +26,6 @@ phases:
       - echo Build started on `date`
       - java -version
       - curl https://repo1.maven.org/maven2
-      - mvn -s settings.xml clean
       - mvn -s settings.xml install
     finally:
       - echo This always runs even if the install command fails
