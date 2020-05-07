@@ -3,12 +3,11 @@ version: 0.2
 env:
   variables:
     JAVA_HOME: "/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.amzn2.0.1.x86_64"
+    PATH: "${JAVA_HOME}/bin:$PATH"
 phases:
   install:
     commands:
       - echo Entered the install phase...
-      - apt-get update -y
-      - apt-get install -y maven
     finally:
       - echo This always runs even if the update or install command fails 
   pre_build:
@@ -21,7 +20,6 @@ phases:
       - echo Entered the build phase...
       - echo Build started on `date`
       - curl https://repo1.maven.org/maven2
-      - mvn -Dmaven.compiler.fork=true -Dmaven.compiler.executable=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.amzn2.0.1.x86_64/bin/javac
       - mvn -s settings.xml clean
       - mvn -s settings.xml install
     finally:
