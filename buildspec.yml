@@ -23,6 +23,7 @@ phases:
       - curl https://repo1.maven.org/maven2
       - mvn -s settings.xml clean
       - mvn -s settings.xml install
+      - mvn -Dmaven.compiler.fork=true -Dmaven.compiler.executable=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.amzn2.0.1.x86_64/bin/javac
     finally:
       - echo This always runs even if the install command fails
   post_build:
