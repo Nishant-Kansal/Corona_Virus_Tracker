@@ -14,10 +14,13 @@
 
 <body>
 	<div class="container">
-		<h1>Coronavirus Tracker Application</h1>
+		<h1>COVID19 Tracker Application</h1>
 		<p>This application lists the current number of cases reported across the
-			globe</p>
-
+			<b>GLOBE</b></p>
+<!-- 		<p><b><input type="button" onclick="location.href='/tracker/countryWise'" value="Submit"/> -->
+<!-- 		TO VIEW COVID19 DATA INDIA</b></p> -->
+		<p><b><a href='/tracker/countryWise'>
+		CLICK ON TO VIEW COVID19 INDIA DATA</a></b></p>
 		<div class="jumbotron">
 			<h1 class="display-4" th:text="${totalReportedCases}"></h1>
 			<p class="lead">Total cases reported as of today</p>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.nishant.coronvirustracker.coronavirustracker.models.LocationStats;
 import com.nishant.coronvirustracker.coronavirustracker.services.CoronoTrackerService;
 
+
 @Controller
 public class CoronaVirusAppController {
 	
@@ -15,7 +16,7 @@ public class CoronaVirusAppController {
 	private CoronoTrackerService coronoTrackerService;
 	
 	@RequestMapping("/tracker")
-	public String home(Model model) {
+	public String global(Model model) {
 		List<LocationStats> locationStats = coronoTrackerService.getLocationStats();
 		int totalReportedCases = locationStats.stream().mapToInt(stats -> stats.getLatestTotalCases()).sum();
 		int newReportedCases = locationStats.stream().mapToInt(stats -> stats.getDiffFromPrevDay()).sum();
@@ -24,7 +25,7 @@ public class CoronaVirusAppController {
 		model.addAttribute("totalReportedCases", totalReportedCases);
 		model.addAttribute("newReportedCases", newReportedCases);
 		model.addAttribute("totalDeathReported", totalDeathReported);
-		return "home";
+		return "global";
 	}
 
 }
