@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Coronavirus Tracker Application</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+</link>
+</head>
+
+<body>
+	<div class="container">
+		<h1>COVID19 Tracker Application</h1>
+		<p>
+			This application lists the current number of cases reported across <b>INDIA</b>
+		</p>
+		<p>
+			<b><a href='/tracker'> CLICK ON TO VIEW COVID19
+					GLOBAL DATA</a></b>
+		</p>
+		<div class="jumbotron">
+			<h1 class="display-4" th:text="${totalReportedCases}"></h1>
+			<p class="lead">Total cases reported as of today</p>
+			<hr class="my-4">
+			<p>
+				<span>Total cases discharged as of today</span> <b><span
+					th:text="${dischargedCases}"></span></b>
+			</p>
+			<p>
+				<span>Total no of deaths across country</span> <b><span
+					th:text="${totalDeathReported}"></span></b>
+			</p>
+			</hr>
+		</div>
+
+		<table class="table">
+			<tr>
+				<th>Serial No</th>
+				<th>State</th>
+				<th>Total Confirmed Cases Reported</th>
+				<th>Total Discharged Cases</th>
+				<th>Total no of Deaths</th>
+			</tr>
+			<tr th:each="countryWiseStat : ${statewiseStats}">
+				<td th:text="${countryWiseStat.serialNo}"></td>
+				<td th:text="${countryWiseStat.state}"></td>
+				<td th:text="${countryWiseStat.confirmed}"></td>
+				<td th:text="${countryWiseStat.dischargedCases}"></td>
+				<td th:text="${countryWiseStat.noOfDeaths}"></td>
+			</tr>
+		</table>
+	</div>
+</body>
+
+</html>
