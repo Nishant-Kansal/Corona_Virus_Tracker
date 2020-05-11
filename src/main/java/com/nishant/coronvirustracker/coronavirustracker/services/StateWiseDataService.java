@@ -50,16 +50,16 @@ public class StateWiseDataService {
 					&& !mapData.get(Constants.SERIAL_NO_CONSTANT).equals(Constants.SERIAL_NO_CONSTANT_2)
 					&& !mapData.get(Constants.SERIAL_NO_CONSTANT).equals(Constants.SERIAL_NO_CONSTANT_3)) {
 				CountryWiseStats statewiseData = new CountryWiseStats();
-				List<String> list = mapData.entrySet().stream().map(Entry :: getValue).collect(Collectors.toList());
-				statewiseData.setSerialNo(list.get(0));
-				statewiseData.setDischargedCases(list.get(1));
-				statewiseData.setConfirmed(list.get(2));
-				statewiseData.setNoOfDeaths(list.get(3));
-				statewiseData.setState(list.get(4));
+				//List<String> list = mapData.entrySet().stream().map(Entry :: getValue).collect(Collectors.toList());
+				statewiseData.setSerialNo(mapData.get("S. No."));
+				statewiseData.setDischargedCases(mapData.get("Cured/Discharged/Migrated"));
+				statewiseData.setConfirmed(mapData.get("Total Confirmed cases*"));
+				statewiseData.setNoOfDeaths(mapData.get("Deaths**"));
+				statewiseData.setState(mapData.get("Name of State / UT"));
 				stateWiseStats.add(statewiseData);
 			}
 		}
-		this.allStatesData = stateWiseStats;
+		this.allStatesData = stateWiseStats.stream().filter(i -> i.getState() != null).collect(Collectors.toList());
 	}
 
 	public List<Map<String,String>> parseTable(Document doc, int tableOrder) {
