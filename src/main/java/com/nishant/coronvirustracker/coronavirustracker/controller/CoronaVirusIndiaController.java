@@ -20,11 +20,12 @@ public class CoronaVirusIndiaController {
 		int totalReportedCases = countryWiseStats.stream().mapToInt(stats -> Integer.valueOf(stats.getConfirmed())).sum();
 		int dischargedCases = countryWiseStats.stream().mapToInt(stats -> Integer.valueOf(stats.getDischargedCases())).sum();
 		int totalDeathReported = countryWiseStats.stream().mapToInt(stats -> Integer.valueOf(stats.getNoOfDeaths())).sum();
+		int activeCases = totalReportedCases-dischargedCases;
 		model.addAttribute("totalReportedCases", totalReportedCases);
+		model.addAttribute("activeCases", activeCases);
 		model.addAttribute("dischargedCases", dischargedCases);
 		model.addAttribute("totalDeathReported", totalDeathReported);
 		model.addAttribute("statewiseStats", countryWiseStats);
 		return "country";
 	}
-
 }
